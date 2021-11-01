@@ -1,13 +1,11 @@
 #' Variants.Identifier
 #'
-#' @param ref data.frame,list of database containg the diagnostic ions of Hb variats
-#' @param exp data.frame, deconvolution list of raw MS2 data
+#' @param ref list of database containg the diagnostic ions of Hb variats
+#' @param exp deconvolution list of raw MS2 data
 #' @param ppm_error_start numeric, ppm error minimum
 #' @param ppm_error_end numeric, ppm error maximum
 #' @import dplyr
 
-#' @return
-#' @export
 
 Variants.Identifier <- function(ref, exp, ppm_error_start=-2, ppm_error_end=5){
   exp <- dplyr::mutate(exp,

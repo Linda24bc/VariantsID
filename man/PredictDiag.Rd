@@ -2,7 +2,7 @@
 % Please edit documentation in R/PredictDiag.R
 \name{PredictDiag}
 \alias{PredictDiag}
-\title{Title}
+\title{PredictDiag}
 \usage{
 PredictDiag(WT, WT_ref, diag_ref, Hbvarinats)
 }
@@ -15,9 +15,6 @@ PredictDiag(WT, WT_ref, diag_ref, Hbvarinats)
 
 \item{Hbvarinats}{sequences of Hb variants .fasta file}
 }
-\value{
-
-}
 \description{
-Title
+PredictDiag
 }

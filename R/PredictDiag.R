@@ -7,8 +7,8 @@
 #' @import dplyr
 #' @import seqinr
 #' @import data.table
-#' @return
-#' @export
+#' @import tidyr
+
 
 PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
   #monomz function
@@ -116,7 +116,7 @@ PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
         ms2type <- c(c1.type, z1.type)
         MH <- c(c1, z1)
       }
-      results_list[[sequence_number]] <- data.frame(ms1z1,Ion = ms2type,ms2type, MH)%>% separate(ms2type, c("Ion_type", "Ion_num"), sep = 1)
+      results_list[[sequence_number]] <- data.frame(ms1z1,Ion = ms2type,ms2type, MH)%>% tidyr::separate(ms2type, c("Ion_type", "Ion_num"), sep = 1)
     }
     return(as.data.frame(do.call("rbind", results_list)))
   }
@@ -124,16 +124,16 @@ PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
   WT_ref <- dplyr::select(WT_ref, c(Fragments,	Ion.type, Ion.num))
   #PredictDiag
   WT <- WT$`sp|P68871|HBB_HUMAN`
-  re <- list()
+  f <- list()
   for (i in 1:length(names(Hbvariants))){
     MT <- matrix(Hbvariants[[i]], byrow = TRUE)
     z <- MT==WT
-    re[[i]]<- data.frame(variant=names(Hbvariants)[i], mut.site_N = which(z==FALSE)-1,mut.site_C=148-which(z==FALSE),
+    f[[i]]<- data.frame(variant=names(Hbvariants)[i], mut.site_N = which(z==FALSE)-1,mut.site_C=148-which(z==FALSE),
                          WT.AA= WT[which(z==FALSE)],MT.AA= MT[which(z==FALSE)])
   }
-  re1 <- do.call(rbind,re)
-  re1$Mutation <- paste(re1$WT.AA, re1$mut.site_N,re1$MT.AA)
-  IDs <- re1$mut.site_N
+  f1 <- do.call(rbind,f)
+  f1$Mutation <- paste(f1$WT.AA, f1$mut.site_N,f1$MT.AA)
+  IDs <- f1$mut.site_N
   mutMass <- function(residue)
   { if (residue == "A")
     mass = 71.03711
@@ -177,9 +177,9 @@ PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
     mass = 103.00919
   return(mass)
   }
-  re1$mutMass <- round(sapply(re1$MT.AA,mutMass)-sapply(re1$WT.AA,mutMass), 5)
+  f1$mutMass <- round(sapply(f1$MT.AA,mutMass)-sapply(f1$WT.AA,mutMass), 5)
 
-  df <- dplyr::left_join(re1, diag_ref, by = "mut.site_N")
+  df <- dplyr::left_join(f1, diag_ref, by = "mut.site_N")
   df2 <- df[, c(1,2,3,6,7,9,10,11,12)]
 
   #2
@@ -191,25 +191,25 @@ PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
   HbA.yz <-data.table::as.data.table(HbA.yz1)
   #bc ions
   m <- length(df2$diag.N.term.start)
-  re <- list()
+  f <- list()
   for (i in 1:m){
     s <- as.numeric(df2$diag.N.term.start[i])
     e <- as.numeric(df2$diag.N.term.end[i])
-    re[[i]] <- cbind(variant=df2$variant[i],HbA.bc[between(Ion.num,s, e)], Mutation = df2$Mutation[i], MutMass.Da= df2$mutMass[i])
+    f[[i]] <- cbind(variant=df2$variant[i],HbA.bc[between(Ion.num,s, e)], Mutation = df2$Mutation[i], MutMass.Da= df2$mutMass[i])
   }
-  re2 <- do.call(rbind,re)
+  f2 <- do.call(rbind,f)
   #yz ions
   n <- length(df2$diag.C.term.start)
-  re3 <- list()
+  f3 <- list()
   for (j in 1:n){
     s <- as.numeric(df2$diag.C.term.start[j])
     e <- as.numeric(df2$diag.C.term.end[j])
-    re3[[j]] <- cbind(variant=df2$variant[j],HbA.yz[between(Ion.num,s, e)],Mutation = df2$Mutation[j], MutMass.Da= df2$mutMass[j])
+    f3[[j]] <- cbind(variant=df2$variant[j],HbA.yz[between(Ion.num,s, e)],Mutation = df2$Mutation[j], MutMass.Da= df2$mutMass[j])
   }
-  re4 <- do.call(rbind,re3)
+  f4 <- do.call(rbind,f3)
 
-  re5 <- rbind(re2, re4) %>% dplyr::filter(!is.na(Fragments))
-  re6 <- re5[with(re5, order(variant))]
+  f5 <- rbind(f2, f4) %>% dplyr::filter(!is.na(Fragments))
+  f6 <- f5[with(f5, order(variant))]
   #get monomass
   ID2 <- names(Hbvariants)
   out2 <- list()
@@ -226,17 +226,17 @@ PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
   }
   all.frags <- do.call(rbind,out2)
 
-  ID3 <- unique(re6$variant)
+  ID3 <- unique(f6$variant)
   out <- list()
   for (i in 1:length(ID3)){
-    sub <- subset(re6, variant==ID3[i])
+    sub <- subset(f6, variant==ID3[i])
     sub %>% mutate_if(is.numeric, as.character) -> sub
     sub2 <- subset(all.frags, varints==ID3[i])
     sub2 %>% mutate_if(is.numeric, as.character) -> sub2
     out[[i]] <-inner_join(sub2, sub, by = c("Ion_type"="Ion.type", "Ion_num"="Ion.num"))
   }
-  relist <- do.call(rbind,out)
-  relist2 <- relist %>% separate(variant,c("x","Variant"), sep = 3)
+  flist <- do.call(rbind,out)
+  relist2 <- relist %>% tidyr::separate(variant,c("x","Variant"), sep = 3)
   names(relist2)[5] <- "Ref_Mass"
   relist2$Name <- paste(relist2$Ion,relist2$Variant, sep = "_" )
   relist3 <- relist2[, c(12,2,3,4,5,8,10,11)]

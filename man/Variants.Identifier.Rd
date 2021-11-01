@@ -2,22 +2,19 @@
 % Please edit documentation in R/VariantsIdentifier.R
 \name{Variants.Identifier}
 \alias{Variants.Identifier}
-\title{Title}
+\title{Variants.Identifier}
 \usage{
 Variants.Identifier(ref, exp, ppm_error_start = -2, ppm_error_end = 5)
 }
 \arguments{
-\item{ref}{data.frame,list of database containg the diagnostic ions of Hb variats}
+\item{ref}{list of database containg the diagnostic ions of Hb variats}
 
-\item{exp}{data.frame, deconvolution list of raw MS2 data}
+\item{exp}{deconvolution list of raw MS2 data}
 
 \item{ppm_error_start}{numeric, ppm error minimum}
 
 \item{ppm_error_end}{numeric, ppm error maximum}
 }
-\value{
-
-}
 \description{
-Title
+Variants.Identifier
 }

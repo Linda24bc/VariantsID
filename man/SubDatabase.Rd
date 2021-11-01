@@ -2,7 +2,7 @@
 % Please edit documentation in R/subdatabese.R
 \name{SubDatabase}
 \alias{SubDatabase}
-\title{Title}
+\title{SubDatabase}
 \usage{
 SubDatabase(
   HbDatabase,
@@ -12,7 +12,7 @@ SubDatabase(
 )
 }
 \arguments{
-\item{HbDatabase}{data.frame, list of original database or updated database}
+\item{HbDatabase}{list of original database or updated database}
 
 \item{Mshift}{observed mass shift at MS1 level}
 
@@ -20,9 +20,6 @@ SubDatabase(
 
 \item{error_Da_end}{mass error tolerance in Da}
 }
-\value{
-
-}
 \description{
-Title
+SubDatabase
 }

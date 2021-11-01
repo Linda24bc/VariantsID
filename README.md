@@ -25,19 +25,7 @@ devtools::install_github("Linda24bc/VariantsID")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(VariantsID)
-#> Warning: replacing previous import 'data.table::last' by 'dplyr::last' when
-#> loading 'VariantsID'
-#> Warning: replacing previous import 'data.table::first' by 'dplyr::first' when
-#> loading 'VariantsID'
-#> Warning: replacing previous import 'data.table::between' by 'dplyr::between'
-#> when loading 'VariantsID'
-#> Warning: replacing previous import 'dplyr::count' by 'seqinr::count' when
-#> loading 'VariantsID'
-```
+#### library(VariantsID)
 
 ### Step 1. Input the database including the diagnostic ions of Hb varints and use MS1 data to narrow down the database - subset the database
 
@@ -57,7 +45,7 @@ error\_Da\_R=0.06)
 
 The list should contain two columns, Exp\_m/z vs Exp\_Intensity)
 
-exp &lt;- read\_csv(“expt mass\_AC.csv”)
+exp &lt;- read\_csv(“expt mass\_cHbSS.csv”)
 
 ### Step 3. Search the experimental results in the subset database with Variant Identifier
 
@@ -70,7 +58,7 @@ ppm\_error\_end=5)
 
 ### Step 4. Output the results in .csv
 
-write.csv(ID.results, “ID\_HbAE\_1.csv”, row.names = FALSE)
+write.csv(ID.results, “ID\_cHbSS.csv”, row.names = FALSE)
 
 # PredictDiag
 
@@ -107,4 +95,4 @@ PD.result &lt;- PredictDiag(WT,WT\_ref,diag\_ref,Hbvarinats)
 
 ### Step 4:Output results in .csv file
 
-write.csv(PD.result, “PredictDiag\_new.csv”, row.names = FALSE)
+write.csv(PD.result, “PredictDiag\_variants20.csv”, row.names = FALSE)
