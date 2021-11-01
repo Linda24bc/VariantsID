@@ -33,11 +33,8 @@ devtools::install_github("Linda24bc/VariantsID")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
 library(VariantsID)
-```
+
 ### Step 1. Input the database including the diagnostic ions of Hb varints and use MS1 data to narrow down the database - subset the database
 
 1.1 Input the original database
