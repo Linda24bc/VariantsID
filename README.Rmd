@@ -51,7 +51,7 @@ ref <- SubDatabase(HbDatabase, Mshift= -0.93, error_Da_L=-0.05, error_Da_R=0.06)
 ### Step 2. Input the deconvolve MS2 results 
 The list should contain two columns,  Exp_m/z vs Exp_Intensity)
 
-exp <- read_csv("expt mass_AC.csv")
+exp <- read_csv("expt mass_cHbSS.csv")
 
 ### Step 3. Search the experimental results in the subset database with Variant Identifier
 Run the function Variants.Identifier, the ppm_error range is changable and depends on the accuracy of the MS2 data. View the result list and get the identification.
@@ -60,4 +60,32 @@ ID.results <- Variants.Identifier(ref, exp, ppm_error_start=-2, ppm_error_end=5)
 
 ### Step 4. Output the results in .csv
 
-write.csv(ID.results, "ID_HbAE_1.csv", row.names = FALSE)
+write.csv(ID.results, "ID_cHbSS.csv", row.names = FALSE)
+
+# PredictDiag
+
+## Introduction
++ This procedure can predict the diagnostic ions of Hb beta variants that have been experimentally teseted by refering to the product ions of Hb A beta.
++ The output list from step 5 can be combined with the original databse in Variants Identifier as the updated database for sereaching.
+
+### Step 1: Input the list of residue numbers of possible diagnostic ions for each AA in the Hb beta,and the list of reference product ions for HbA beta
+
+diag_ref <- read.csv("finddiag.csv")
+
+WT_ref <- read.csv("ref mass list_pro_1.csv") 
+
+### Step 2: Input the sequennces of HbA beta and Hb beta variants 
+Multiple sequences of variants sequences can be included in one .fasta file, the sequences should have the N-terminal Met while the comparison results exclude the N-ternimal Met.
+
+Hbvariants <- seqinr::read.fasta(file = "Hbvariants.fasta", seqtype = "AA",as.string = FALSE)
+
+WT <- seqinr::read.fasta(file = "HbA.fasta", seqtype = "AA",as.string = FALSE)
+
+### Step 3: Predict the diagnostic ions by running the function
+
+PD.result <- PredictDiag(WT,WT_ref,diag_ref,Hbvarinats)
+
+### Step 4:Output results in .csv file
+
+write.csv(PD.result, "PredictDiag_variants20.csv", row.names = FALSE)
+

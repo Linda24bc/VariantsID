@@ -29,6 +29,14 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(VariantsID)
+#> Warning: replacing previous import 'data.table::last' by 'dplyr::last' when
+#> loading 'VariantsID'
+#> Warning: replacing previous import 'data.table::first' by 'dplyr::first' when
+#> loading 'VariantsID'
+#> Warning: replacing previous import 'data.table::between' by 'dplyr::between'
+#> when loading 'VariantsID'
+#> Warning: replacing previous import 'dplyr::count' by 'seqinr::count' when
+#> loading 'VariantsID'
 ```
 
 ### Step 1. Input the database including the diagnostic ions of Hb varints and use MS1 data to narrow down the database - subset the database
@@ -63,3 +71,40 @@ ppm\_error\_end=5)
 ### Step 4. Output the results in .csv
 
 write.csv(ID.results, “ID\_HbAE\_1.csv”, row.names = FALSE)
+
+# PredictDiag
+
+## Introduction
+
+-   This procedure can predict the diagnostic ions of Hb beta variants
+    that have been experimentally teseted by refering to the product
+    ions of Hb A beta.
+-   The output list from step 5 can be combined with the original
+    databse in Variants Identifier as the updated database for
+    sereaching.
+
+### Step 1: Input the list of residue numbers of possible diagnostic ions for each AA in the Hb beta,and the list of reference product ions for HbA beta
+
+diag\_ref &lt;- read.csv(“finddiag.csv”)
+
+WT\_ref &lt;- read.csv(“ref mass list\_pro\_1.csv”)
+
+### Step 2: Input the sequennces of HbA beta and Hb beta variants
+
+Multiple sequences of variants sequences can be included in one .fasta
+file, the sequences should have the N-terminal Met while the comparison
+results exclude the N-ternimal Met.
+
+Hbvariants &lt;- seqinr::read.fasta(file = “Hbvariants.fasta”, seqtype =
+“AA”,as.string = FALSE)
+
+WT &lt;- seqinr::read.fasta(file = “HbA.fasta”, seqtype = “AA”,as.string
+= FALSE)
+
+### Step 3: Predict the diagnostic ions by running the function
+
+PD.result &lt;- PredictDiag(WT,WT\_ref,diag\_ref,Hbvarinats)
+
+### Step 4:Output results in .csv file
+
+write.csv(PD.result, “PredictDiag\_new.csv”, row.names = FALSE)

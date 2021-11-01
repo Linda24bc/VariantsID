@@ -1,9 +1,9 @@
 #' Title
 #'
-#' @param HbDatabase
-#' @param Mshift
-#' @param error_Da_start
-#' @param error_Da_end
+#' @param HbDatabase data.frame, list of original database or updated database
+#' @param Mshift observed mass shift at MS1 level
+#' @param error_Da_start mass error tolerance in Da
+#' @param error_Da_end mass error tolerance in Da
 #' @import dplyr
 #' @return
 #' @export
