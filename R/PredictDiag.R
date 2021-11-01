@@ -1,4 +1,4 @@
-#' Title
+#' PredictDiag
 #'
 #' @param WT sequence of wild-type(HbA beta) protein .fasta file
 #' @param WT_ref reference list of fragments for wild-type protein (HbA beta)

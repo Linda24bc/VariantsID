@@ -1,4 +1,4 @@
-#' Title
+#' Variants.Identifier
 #'
 #' @param ref data.frame,list of database containg the diagnostic ions of Hb variats
 #' @param exp data.frame, deconvolution list of raw MS2 data

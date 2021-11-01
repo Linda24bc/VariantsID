@@ -1,4 +1,4 @@
-#' Title
+#' SubDatabase
 #'
 #' @param HbDatabase data.frame, list of original database or updated database
 #' @param Mshift observed mass shift at MS1 level
