@@ -4,11 +4,11 @@
 #' @param WT_ref reference list of fragments for wild-type protein (HbA beta)
 #' @param diag_ref possible diagnostic ions for each AA of Hba beta
 #' @param Hbvarinats sequences of Hb variants .fasta file
+#' @import  dplyr
+#' @import  data.table
+#' @import  tidyr
 #' @import dplyr
-#' @import seqinr
-#' @import data.table
-#' @import tidyr
-
+NULL
 
 PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
   #monomz function
