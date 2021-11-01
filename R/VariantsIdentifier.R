@@ -4,8 +4,8 @@
 #' @param exp deconvolution list of raw MS2 data
 #' @param ppm_error_start numeric, ppm error minimum
 #' @param ppm_error_end numeric, ppm error maximum
-#' @import dplyr mutate
-NULL
+#' @importFrom  dplyr mutate full_join filter
+
 
 Variants.Identifier <- function(ref, exp, ppm_error_start=-2, ppm_error_end=5){
   exp <- dplyr::mutate(exp,

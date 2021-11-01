@@ -4,8 +4,8 @@
 #' @param Mshift observed mass shift at MS1 level
 #' @param error_Da_start mass error tolerance in Da
 #' @param error_Da_end mass error tolerance in Da
-#' @import dplyr
-NULL
+#' @importFrom  dplyr filter
+
 
 SubDatabase <- function(HbDatabase, Mshift= -29.97, error_Da_start=-0.06, error_Da_end=0.05){
   s1 <- Mshift + error_Da_start
