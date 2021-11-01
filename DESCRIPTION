@@ -1,12 +1,16 @@
 Package: VariantsID
-Title: What the Package Does (One Line, Title Case)
+Title: Antomatic Identification of Hb variants and database expansion
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Yuan", "Lin", , "yl17e@my.fsu.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8653-0050"))
+Description: Antomatic Identification of Hb variants by Subsetdatabase and Variants inderfitider and database expansion by prediecDiag.
+License: MIT + file LICENSE
+Imports: 
+   dplyr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Depends: 
+    R (>= 2.10)
+LazyData: true

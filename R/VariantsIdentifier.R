@@ -1,5 +1,16 @@
+#' Title
+#'
+#' @param ref data.frame,list of database containg the diagnostic ions of Hb variats
+#' @param exp data.frame, deconvolution list of raw MS2 data
+#' @param ppm_error_start numeric, ppm error minimum
+#' @param ppm_error_end numeric, ppm error maximum
+#' @import dplyr
+
+#' @return
+#' @export
+
 Variants.Identifier <- function(ref, exp, ppm_error_start=-2, ppm_error_end=5){
-  exp <- mutate(exp,
+  exp <- dplyr::mutate(exp,
                 Exp_rel_abundance = Exp_Intensity/max(exp$Exp_Intensity)*100)
   name.ref <- as.character(ref$Name)
   exp$Name <- numeric(length(exp$Exp_Mass))
@@ -10,9 +21,9 @@ Variants.Identifier <- function(ref, exp, ppm_error_start=-2, ppm_error_end=5){
         exp$Name[i]<- name.ref[j]
     }
   }
-  join <- full_join(exp, ref)
+  join <- dplyr::full_join(exp, ref)
   join$ppm_error=(join$Exp_Mass - join$Ref_Mass)/join$Ref_Mass * (10^6)
-  join1 <- filter(join, Exp_rel_abundance > 2 & !is.na(Ref_Mass) & !is.na(Exp_Mass))
+  join1 <- dplyr::filter(join, Exp_rel_abundance > 2 & !is.na(Ref_Mass) & !is.na(Exp_Mass))
   sort <- join1[with(join1, order(Variant, Ion.type, Exp_Mass, Ref_Mass)),]
   re <- sort[,c(4,1,3,5,6,7,8,9,10,11,12)]
 }
