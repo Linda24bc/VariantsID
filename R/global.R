@@ -1,7 +1,4 @@
-utils::globalVariables(c("prob", "section", "y"))
+utils::globalVariables(c("Delta.mass","Exp_Intensity","Exp_Mass","Exp_rel_abundance","Fragments",
+                         "Hbvariants","Ion.num","Ion.type","Ref_Mass","relist",
+                         "variant","varints"))
 
-"Delta.mass" "Exp_Intensity" "Exp_Mass" "Exp_rel_abundance" "Fragments"
-"Hbvariants" "Ion.num" "Ion.type" "Ref_Mass"  "relist"
-"variant" "varints"
-
-inner_join mutate_if
