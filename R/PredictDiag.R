@@ -4,7 +4,7 @@
 #' @param WT_ref reference list of fragments for wild-type protein (HbA beta)
 #' @param diag_ref possible diagnostic ions for each AA of Hba beta
 #' @param Hbvarinats sequences of Hb variants .fasta file
-#' @importFrom   dplyr filter left_join select between inner_join mutate_if
+#' @importFrom   dplyr filter left_join select between
 #' @importFrom   data.table as.data.table
 #' @importFrom   tidyr separate
 #' @importFrom  seqinr getSequence
