@@ -1,5 +1,5 @@
 Package: VariantsID
-Title: Antomatic Identification of Hb variants and database expansion
+Title: Automatic Identification of Hb variants and database expansion
 Version: 0.0.0.9000
 Authors@R: 
     person("Yuan", "Lin", , "yl17e@my.fsu.edu", role = c("aut", "cre"),
