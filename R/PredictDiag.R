@@ -232,10 +232,10 @@ PredictDiag <- function(WT,WT_ref,diag_ref,Hbvarinats) {
   out <- list()
   for (i in 1:length(ID3)){
     sub <- subset(f6, variant==ID3[i])
-    sub %>% mutate_if(is.numeric, as.character) -> sub
+    sub %>% dplyr::mutate_if(is.numeric, as.character) -> sub
     sub2 <- subset(all.frags, varints==ID3[i])
-    sub2 %>% mutate_if(is.numeric, as.character) -> sub2
-    out[[i]] <-inner_join(sub2, sub, by = c("Ion_type"="Ion.type", "Ion_num"="Ion.num"))
+    sub2 %>% dplyr::mutate_if(is.numeric, as.character) -> sub2
+    out[[i]] <- dplyr::inner_join(sub2, sub, by = c("Ion_type"="Ion.type", "Ion_num"="Ion.num"))
   }
   flist <- do.call(rbind,out)
   relist2 <- relist %>% tidyr::separate(variant,c("x","Variant"), sep = 3)
