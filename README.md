@@ -6,7 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of VariantsID is to identify Hb variants by deconvoluved MS2 data and predict diagnostic product ions of Hb beta variants by referring to the experimentally determined fragments of HBA beta
+The goal of VariantsID is to identify Hb variants by deconvoluved MS2 data and predict diagnostic product ions of Hb beta variants by referring to the experimentally determined fragments of HBA beta.
+
+More details are avaiable in the publication in JASMS (https://doi.org/10.1021/jasms.1c00291) 
 
 ## Installation
 
