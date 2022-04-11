@@ -10,6 +10,11 @@ The goal of VariantsID is to identify Hb variants by deconvoluved MS2 data and p
 
 More details are avaiable in the publication in JASMS (https://doi.org/10.1021/jasms.1c00291) 
 
+Please cite:
+Yuan Lin, Archana M. Agarwal, Alan G. Marshall, and Lissa C. Anderson
+Journal of the American Society for Mass Spectrometry 2022 33 (1), 123-130
+DOI: 10.1021/jasms.1c00291
+
 ## Installation
 
 You can install the development version of VariantsID like so:
